@@ -1,6 +1,7 @@
 import { registerHooks } from '@/components/Hooks';
 import { IntlConfig } from '@/components/intl';
 import { WrapperConfig } from '@/components/Wrapper';
+import { FirstSceneConfig } from '@/layouts/FirstScene';
 import { UIManager } from 'react-native';
 
 UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -18,10 +19,17 @@ const wrapper: WrapperConfig = {
   default: [],
 };
 
+const FirstScene: FirstSceneConfig = {
+  afterInit: navigation => navigation.navigate('appnav'),
+  description: 'Selfuse Template With TypeScript / Dva / React Hooks / Ant Design Mobile',
+  title: 'React Native',
+};
+
 registerHooks('onDidMount', 'onSetLocale');
 
 export default {
   intl,
   wrapper,
   ApiPrefix: 'https://google.com',
+  FirstScene,
 };

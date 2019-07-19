@@ -11,3 +11,7 @@ export function mixStyle<S extends object = any>(
     .map(k => style[k as keyof S])
     .concat(args) as any;
 }
+
+export function wait(seconds: number) {
+  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}

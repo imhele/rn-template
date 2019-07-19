@@ -4,8 +4,8 @@ import zhCN from '@/locales/zh-CN';
 import { dispatch } from '@/models';
 import Portal from '@ant-design/react-native/es/portal';
 import Toast from '@ant-design/react-native/es/toast';
+import AsyncStorage from '@react-native-community/async-storage';
 import template from 'lodash/template';
-import { AsyncStorage } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { locales, LocaleType } from './consts';
 import { matchLocale } from './utils';
@@ -137,15 +137,18 @@ Hooks.onSetLocale((locale: LocaleType) => {
 if (config.intl.deviceInfo !== false) {
   format.localeName = getDeviceLocale(format.localeName);
 }
-if (config.intl.storageKey !== false) {
-  AsyncStorage.getItem(config.intl.storageKey || 'locale', (err, res) => {
-    if (err) return;
+
+export async function loadLocale() {
+  if (config.intl.storageKey === false) return;
+  try {
+    const res = await AsyncStorage.getItem(config.intl.storageKey || 'locale');
     const newLocaleName = matchLocale(format.localeName, res);
     if (newLocaleName === format.localeName) return;
     format.localeName = newLocaleName;
     callHook('onSetLocale', newLocaleName);
-  });
+  } catch {}
 }
+
 /**
  ** ***************
  ** INIT `intl` END

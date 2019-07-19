@@ -1,14 +1,19 @@
 import TabBarIcon from '@/components/Icon/TabBarIcon';
 import intl from '@/components/intl';
 import { Color, Font } from '@/config';
+import FirstScene from '@/layouts/FirstScene';
 import HomePage from '@/pages/home';
 import MinePage from '@/pages/mine';
 import { AnyComponent } from '@/utils/types';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
 import wrapPages, { createNavigator } from './wrapPages';
 
 const CommonPages: { [K: string]: AnyComponent } = {};
-const [home, mine] = wrapPages([HomePage, MinePage]);
+const [firstscene, home, mine] = wrapPages([FirstScene, HomePage, MinePage]);
 export const NavigatorKeys = ['hometab', 'usertab', 'home', 'mine'];
 
 /**
@@ -58,11 +63,11 @@ const usertab = createNavigator(
 );
 
 /**
- ** **********************
- ** `Roor` - tab navigator
- ** **********************
+ ** *******************************
+ ** `App` Navigator - tab navigator
+ ** *******************************
  */
-const Root = createBottomTabNavigator(
+const appnav = createBottomTabNavigator(
   {
     hometab,
     usertab,
@@ -86,6 +91,21 @@ const Root = createBottomTabNavigator(
         borderTopColor: Color.TabBar.border,
       },
     },
+  },
+);
+
+/**
+ ** ****
+ ** ROOT
+ ** ****
+ */
+const Root = createSwitchNavigator(
+  {
+    firstscene,
+    appnav,
+  },
+  {
+    initialRouteName: 'firstscene',
   },
 );
 

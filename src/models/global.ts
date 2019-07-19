@@ -1,9 +1,9 @@
-import intl, { LocaleType } from '@/components/intl';
+import { LocaleType } from '@/components/intl';
 import { setCommonParams } from '@/layouts/Routes';
 import { Reducer } from './connect';
 
 export interface GlobalState {
-  locale: LocaleType;
+  locale: LocaleType | null;
   wingBlank: number;
 }
 
@@ -19,7 +19,7 @@ interface GlobalModel {
 const GlobalModel: GlobalModel = {
   namespace: 'global',
   state: {
-    locale: intl.localeName,
+    locale: null,
     wingBlank: 12,
   },
   effects: {},
