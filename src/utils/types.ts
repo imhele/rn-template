@@ -27,4 +27,4 @@ export type PowerPartial<T> = { [K in keyof T]?: T[K] extends object ? PowerPart
 
 export type ArgsType<T, F = any> = T extends (...a: infer R) => any ? R : F;
 
-export type PromiseReturn<T, F = any> = T extends Promise<infer R> ? R : F;
+export type PromiseReturn<T, F = T> = T extends Promise<infer R> ? R : F;

@@ -26,7 +26,7 @@ export interface EffectsCommandMap {
   call: <T, A extends any[], R>(
     func: T,
     ...args: ArgsType<T, A>
-  ) => T extends (...args: any[]) => any ? ReturnType<T> : PromiseReturn<T, R>;
+  ) => T extends (...args: any[]) => any ? PromiseReturn<ReturnType<T>> : R;
   select: <T>(func: (state: ConnectState) => T) => T;
   take: Function;
   cancel: Function;

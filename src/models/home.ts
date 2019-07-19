@@ -16,7 +16,7 @@ const home: HomeModel = {
   state: {},
   effects: {
     *refresh(_, { call }) {
-      yield call(new Promise(resolver => setTimeout(resolver, 2000)));
+      yield call(() => new Promise(resolver => setTimeout(resolver, 2000)));
     },
   },
   reducers: {},
