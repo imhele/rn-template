@@ -1,4 +1,4 @@
-package com.tinyweather;
+package com.rntemplate;
 
 import android.app.Application;
 

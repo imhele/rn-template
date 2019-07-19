@@ -14,11 +14,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface tinyweatherTests : XCTestCase
+@interface rntemplateTests : XCTestCase
 
 @end
 
-@implementation tinyweatherTests
+@implementation rntemplateTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {
