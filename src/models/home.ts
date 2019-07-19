@@ -1,30 +1,25 @@
-import { ImageURISource } from 'react-native';
+import { Effect } from './connect';
 
-export interface Banner {
-  key: string | number;
-  source: ImageURISource;
+export interface HomeState {}
+
+interface HomeModel {
+  namespace: 'home';
+  state: HomeState;
+  effects: {
+    refresh: Effect;
+  };
+  reducers: {};
 }
 
-export interface HomeState {
-  banners: Banner[];
-}
-
-const refresh = () => {
-  return new Promise(resolver => setTimeout(resolver, 2000));
-};
-
-const testURI = [
-  'https://p1.meituan.net/display/679be531c92513b6170a8166f125c732115167.jpg',
-  'https://img.meituan.net/midas/d612a0f17a2377eac408b84f54f2d7ef98038.jpg',
-];
-
-const home = {
-  state: {
-    banners: testURI.map((uri, key): Banner => ({ source: { uri }, key })),
-  } as HomeState,
-  reducers: {
-    refresh,
+const home: HomeModel = {
+  namespace: 'home',
+  state: {},
+  effects: {
+    *refresh(_, { call }) {
+      yield call(new Promise(resolver => setTimeout(resolver, 2000)));
+    },
   },
+  reducers: {},
 };
 
 export default home;

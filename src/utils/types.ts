@@ -24,3 +24,7 @@ export type FCN<P = {}, N = {}> = FunctionComponentNavigator<P, N>;
 export type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
 
 export type PowerPartial<T> = { [K in keyof T]?: T[K] extends object ? PowerPartial<T[K]> : T[K] };
+
+export type ArgsType<T, F = any> = T extends (...a: infer R) => any ? R : F;
+
+export type PromiseReturn<T, F = any> = T extends Promise<infer R> ? R : F;

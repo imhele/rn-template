@@ -2,7 +2,7 @@ import { HoverScale } from '@/components/Animation';
 import Icon from '@/components/Icon';
 import intl from '@/components/intl';
 import { Color, Font } from '@/config';
-import connect from '@/models';
+import { connect } from '@/models/connect';
 import React, { FC } from 'react';
 import { StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';

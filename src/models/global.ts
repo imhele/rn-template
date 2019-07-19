@@ -1,13 +1,22 @@
-import { PX } from '@/config';
+// import { Effect } from './connect';
 
 export interface GlobalState {
   wingBlank: number;
 }
 
-const GlobalModel = {
+interface GlobalModel {
+  namespace: 'global';
+  state: GlobalState;
+  effects: {};
+  reducers: {};
+}
+
+const GlobalModel: GlobalModel = {
+  namespace: 'global',
   state: {
     wingBlank: 12,
-  } as GlobalState,
+  },
+  effects: {},
   reducers: {},
 };
 

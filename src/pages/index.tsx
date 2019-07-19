@@ -1,4 +1,9 @@
 import '@/config';
+import DvaContainer from '@/models';
 import { WrappedContainer } from '@/layouts/Routes';
 
-export default WrappedContainer;
+export default () => (
+  <DvaContainer>
+    <WrappedContainer />
+  </DvaContainer>
+);
