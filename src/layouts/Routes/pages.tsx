@@ -1,6 +1,6 @@
 import Wrapper from '@/components/Wrapper';
 import TabBarIcon from '@/components/Icon/TabBarIcon';
-import intl, { getLocale } from '@/components/intl';
+import { getLocale } from '@/components/intl';
 import { Color, Font } from '@/config';
 import HomePage from '@/pages/home';
 import MinePage from '@/pages/mine';
