@@ -1,4 +1,4 @@
-import { ArgsType, PromiseReturn } from '@/utils/types';
+import { AnyComponentClass, ArgsType, PromiseReturn } from '@/utils/types';
 import { AnyAction } from 'redux';
 import { connect as DvaConnect } from 'react-redux';
 import { GlobalState } from './global';
@@ -33,24 +33,41 @@ export interface EffectsCommandMap {
   [key: string]: any;
 }
 
-export type Effect = (action: AnyAction, effects: EffectsCommandMap) => void;
+export interface ActionWithPayload<P = any> extends AnyAction {
+  type: string;
+  payload: P;
+}
+
+export interface ActionWithCallback<P = any, C = (payload: P) => void> extends AnyAction {
+  type: string;
+  payload: P;
+  callback: C;
+}
+
+export type Action<P = undefined, C = false> = P extends undefined
+  ? AnyAction
+  : C extends false
+  ? ActionWithPayload<P>
+  : C extends true
+  ? ActionWithCallback<P>
+  : ActionWithCallback<P, C>;
+
+export type Effect<P = any, C = (payload: P) => void> = (
+  action: Action<P, C>,
+  effects: EffectsCommandMap,
+) => void;
+
+export type Reducer<S, P = any, C = (payload: P) => void> = (state: S, action: Action<P, C>) => S;
 
 /**
  * @type P: Type of payload
  * @type C: Type of callback
  */
-export type Dispatch = <P = any, C = (payload: P) => void>(action: {
-  type: string;
-  payload?: P;
-  callback?: C;
-  [key: string]: any;
-}) => any;
+export type Dispatch = <P = undefined, C = false>(action: Action<P, C>) => any;
 
 export interface ConnectProps {
   dispatch: Dispatch;
 }
-
-type AnyComponentClass<P = {}, S = any> = React.ComponentClass<P, S> | React.FunctionComponent<P>;
 
 /**
  * @type P: props

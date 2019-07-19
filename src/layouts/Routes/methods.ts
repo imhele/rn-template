@@ -9,8 +9,7 @@ import {
   StackActions,
 } from 'react-navigation';
 import { WrappedContainer } from './container';
-
-const NavigatorKeys = ['hometab', 'usertab', 'home', 'mine'];
+import { NavigatorKeys } from './pages';
 
 export function init(options?: NavigationInitActionPayload) {
   if (!WrappedContainer.ref) return;

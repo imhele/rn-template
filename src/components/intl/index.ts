@@ -1,30 +1,16 @@
 import Hooks, { callHook } from '@/components/Hooks';
 import config from '@/config';
-import { setCommonParams } from '@/layouts/Routes';
 import zhCN from '@/locales/zh-CN';
+import { dispatch } from '@/models';
 import Portal from '@ant-design/react-native/es/portal';
 import Toast from '@ant-design/react-native/es/toast';
 import template from 'lodash/template';
 import { AsyncStorage } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { locales, LocaleType } from './consts';
+import { matchLocale } from './utils';
 
 export * from './consts';
-
-export function matchLocale(defaultValue: LocaleType, ...localeName: any[]): LocaleType {
-  const match = Object.entries(locales).map(l => ({
-    match: l[1].match,
-    name: l[0] as LocaleType,
-  }));
-  localeName.some(n => {
-    if (typeof n !== 'string') return false;
-    const res = match.find(m => m.match(n));
-    if (!res) return false;
-    defaultValue = res.name;
-    return true;
-  });
-  return defaultValue;
-}
 
 /**
  * match locale by device info
@@ -141,7 +127,10 @@ format.upperAll = upperAll;
 format.localeDay = localeDay;
 format.localeName = matchLocale('zh-CN', config.intl.default);
 Hooks.onSetLocale((locale: LocaleType) => {
-  setCommonParams({ locale });
+  dispatch({
+    type: 'global/setLocale',
+    payload: locale,
+  });
   return true;
 });
 

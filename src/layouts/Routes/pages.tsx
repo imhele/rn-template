@@ -1,81 +1,61 @@
-import Wrapper from '@/components/Wrapper';
 import TabBarIcon from '@/components/Icon/TabBarIcon';
-import { getLocale } from '@/components/intl';
+import intl from '@/components/intl';
 import { Color, Font } from '@/config';
 import HomePage from '@/pages/home';
 import MinePage from '@/pages/mine';
-import { AnyComponent, FCN } from '@/utils/types';
-import React from 'react';
-import {
-  createStackNavigator,
-  createBottomTabNavigator,
-  NavigationScreenConfig,
-  NavigationScreenOptions,
-} from 'react-navigation';
+import { AnyComponent } from '@/utils/types';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import wrapPages, { createNavigator } from './wrapPages';
 
 const CommonPages: { [K: string]: AnyComponent } = {};
-const initialRouteParams = {
-  locale: getLocale(),
-};
-const [home, mine] = [HomePage, MinePage].map((Page: FCN<any, any>) => {
-  const Wrapped: FCN = ({ children, ...props }) => (
-    <Wrapper {...props}>
-      <Page {...props}>{children}</Page>
-    </Wrapper>
-  );
-  Wrapped.navigationOptions = Page.navigationOptions;
-  return Wrapped;
-});
+const [home, mine] = wrapPages([HomePage, MinePage]);
+export const NavigatorKeys = ['hometab', 'usertab', 'home', 'mine'];
 
 /**
  ** ****************************
  ** `Home` tab - stack navigator
  ** ****************************
  */
-const hometabConfig: NavigationScreenConfig<NavigationScreenOptions> = ({ navigationOptions }) => ({
-  tabBarIcon: TabBarIcon({ type: 'home' }),
-  title: 'Title',
-  ...navigationOptions,
-});
-
-const hometab = createStackNavigator(
-  {
-    ...CommonPages,
-    home,
-  },
-  {
-    initialRouteKey: 'home',
-    initialRouteName: 'home',
-    initialRouteParams,
-  },
+const hometab = createNavigator(
+  createStackNavigator(
+    {
+      ...CommonPages,
+      home,
+    },
+    {
+      initialRouteKey: 'home',
+      initialRouteName: 'home',
+    },
+  ),
+  ({ navigationOptions }) => ({
+    tabBarIcon: TabBarIcon({ type: 'home' }),
+    title: intl.U('首页'),
+    ...navigationOptions,
+  }),
 );
-
-hometab.navigationOptions = hometabConfig;
 
 /**
  ** ****************************
  ** `User` tab - stack navigator
  ** ****************************
  */
-const usertabConfig: NavigationScreenConfig<NavigationScreenOptions> = ({ navigationOptions }) => ({
-  tabBarIcon: TabBarIcon({ type: 'user' }),
-  title: 'Title',
-  ...navigationOptions,
-});
-
-const usertab = createStackNavigator(
-  {
-    ...CommonPages,
-    mine,
-  },
-  {
-    initialRouteKey: 'mine',
-    initialRouteName: 'mine',
-    initialRouteParams,
-  },
+const usertab = createNavigator(
+  createStackNavigator(
+    {
+      ...CommonPages,
+      mine,
+    },
+    {
+      initialRouteKey: 'mine',
+      initialRouteName: 'mine',
+    },
+  ),
+  ({ navigationOptions }) => ({
+    tabBarIcon: TabBarIcon({ type: 'user' }),
+    title: intl.U('我的'),
+    ...navigationOptions,
+  }),
 );
-
-usertab.navigationOptions = usertabConfig;
 
 /**
  ** **********************

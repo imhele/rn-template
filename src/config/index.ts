@@ -1,4 +1,3 @@
-import Provider from '@ant-design/react-native/es/provider';
 import { registerHooks } from '@/components/Hooks';
 import { IntlConfig } from '@/components/intl';
 import { WrapperConfig } from '@/components/Wrapper';
@@ -16,7 +15,7 @@ const intl: IntlConfig = {
 };
 
 const wrapper: WrapperConfig = {
-  default: [Provider],
+  default: [],
 };
 
 registerHooks('onDidMount', 'onSetLocale');
@@ -24,5 +23,5 @@ registerHooks('onDidMount', 'onSetLocale');
 export default {
   intl,
   wrapper,
-  ApiPrefix: 'https://1704858712026921.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/Temp',
+  ApiPrefix: 'https://google.com',
 };

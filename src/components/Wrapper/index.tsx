@@ -8,8 +8,16 @@ export interface WrapperConfig {
 
 const Wrapper: FC & {
   queue: AnyComponentClass[];
-} = ({ children, ...props }) =>
-  Wrapper.queue.reduce((prev, Curr: any) => <Curr {...props}>{prev}</Curr>, children as any);
+} = ({ children, ...props }) => (
+  <React.Fragment>
+    {Wrapper.queue.reduce(
+      (prev, Curr) => (
+        <Curr {...props}>{prev}</Curr>
+      ),
+      children,
+    )}
+  </React.Fragment>
+);
 
 Wrapper.queue = config.wrapper.default || ([] as AnyComponentClass[]);
 
