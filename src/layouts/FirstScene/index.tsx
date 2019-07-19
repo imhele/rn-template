@@ -1,6 +1,6 @@
 import config, { Color, Font, PX } from '@/config';
 import { FadeInView } from '@/components/Animation';
-import { loadLocale, setLocale } from '@/components/intl';
+import { loadLocale } from '@/components/intl';
 import { wait } from '@/utils';
 import { FCN } from '@/utils/types';
 import React, { ReactNode, useLayoutEffect } from 'react';
